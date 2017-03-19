@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<grid_schedule>
+	<meta_info>
+	{% for key, value in metainfo.iteritems() %}
+		<meta name="{{ key }}" value="{{ value }}"/>
+	{% endfor %}
+	</meta_info>
+	<grid_info>
+	{# one cluster per architecture #}
+		<info name="nb_clusters" value="{{ archs.__len__() }}"/>
+		<clusters>
+		{% for arch in archs %}
+			<cluster id="{{ arch.arch_id }}" hosts="{{ arch.nb_pus }}" first_host="0"/>
+		{% endfor %}
+		</clusters>
+	</grid_info>
+	<node_infos>
+	{% for task in task_rects %}
+		<node_statistics>
+			<node_property name="id" value="{{ task.get_task_id() }}"/>
+			<node_property name="type" value="{{ task.get_set_str() }}"/>
+			<node_property name="start_time" value="{{ task.get_start_time() }}"/>
+			<node_property name="end_time" value="{{ task.get_end_time() }}"/>
+			<configuration>
+				<conf_property name="cluster_id" value="{{ task.get_device_id() }}"/>
+				<conf_property name="host_nb" value="{{ task.get_nbp() }}"/>
+				<host_lists>
+				{% for blk_start, blk_size in task.resources %}
+					<hosts start="{{ blk_start }}" nb="{{ blk_size }}"/>
+				{% endfor %}
+				</host_lists>
+			</configuration>
+		</node_statistics>
+	{% endfor %}
+	</node_infos>
+</grid_schedule>
