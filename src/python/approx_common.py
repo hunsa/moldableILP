@@ -1,6 +1,7 @@
 
 # SCHEDULING INDEPENDENT MOLDABLE TASKS ON MULTI-CORES WITH GPUS
 # Copyright (C) 2014 Sascha Hunold <sascha@hunoldscience.net>
+# Raphaël Bleuse <raphael.bleuse@imag.fr>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
